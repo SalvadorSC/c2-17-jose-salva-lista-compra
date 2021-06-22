@@ -11,6 +11,10 @@ export const Lista = (props) => {
   const editarArticulo = (id) => {
     history.push(`/formulario-articulo/${id}`);
   };
+  const precioTotal = articulos.reduce(
+    (contador, articulo) => articulo.precio + contador,
+    0
+  );
   const borrar = async (id) => {
     const response = await fetchGlobal(`${urlAPI}/${id}`, {
       method: "DELETE",
@@ -19,7 +23,6 @@ export const Lista = (props) => {
       llamadaListaCompra(urlAPI);
     }
   };
-
   return (
     <>
       <Info />
@@ -27,16 +30,15 @@ export const Lista = (props) => {
         <ul className="articulos">
           {articulos.map((articulo) => (
             <>
-              <li key={articulo.id}>
-                <span
-                  key={articulo.id}
+              <li key={articulo.id} className="articulo">
+                <input type="checkbox" className="marcar" />
+                <div
+                  className="info-articulo"
                   onClick={() => editarArticulo(articulo.id)}
                 >
-                  <input type="checkbox" className="marcar" />
                   <span className="nombre">{articulo.nombre}</span>
                   <span className="precio">{articulo.precio}€</span>
-                </span>
-
+                </div>
                 <div onClick={() => borrar(articulo.id)} className="borrar">
                   <FaTimesCircle className="icono" />
                 </div>
@@ -44,7 +46,7 @@ export const Lista = (props) => {
             </>
           ))}
         </ul>
-        <span className="precio-total">1.95€</span>
+        <span className="precio-total">{precioTotal}€</span>
       </main>
     </>
   );
