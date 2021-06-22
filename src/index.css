@@ -149,3 +149,6 @@ i.icono {
   justify-content: center;
   align-items: center;
 }
+.tachado {
+  text-decoration: line-through;
+}

@@ -14,12 +14,12 @@ import { PaginaPrincipal } from "./paginas/PaginaPrincipal";
 import { DatosArticulosContext } from "./context/DatosArticulosContext";
 
 function App() {
-  const [articulos, setArticulo] = useState([]);
+  const [articulos, setArticulos] = useState([]);
   const urlAPI = "http://localhost:3001/articulos";
   const llamadaListaCompra = async (urlAPI) => {
     const response = await fetch(urlAPI);
     const articulos = await response.json();
-    setArticulo(articulos);
+    setArticulos(articulos);
   };
   const numeroArticulos = articulos.length;
   const numeroArticulosComprados = articulos.reduce(
@@ -31,13 +31,18 @@ function App() {
   return (
     <>
       <DatosArticulosContext.Provider
-        value={{ numeroArticulos, numeroArticulosComprados }}
+        value={{
+          numeroArticulos,
+          numeroArticulosComprados,
+          articulos,
+          setArticulos,
+        }}
       >
         <Router>
           <Cabecera />
           <Switch>
             <Route path="/principal" activeClassNmae="actual" exact>
-              <PaginaPrincipal articulos={articulos} />
+              <PaginaPrincipal />
             </Route>
             <Route path="/lista-articulo" exact>
               <Lista
@@ -47,13 +52,11 @@ function App() {
               />
             </Route>
             <Route path="/formulario-articulo" exact>
-              <PaginaFormulario articulos={articulos} urlAPI={urlAPI} />
+              <PaginaFormulario urlAPI={urlAPI} />
             </Route>
             <Route path="/formulario-articulo/:idItem" exact>
               <PaginaFormulario
-                articulos={articulos}
                 urlAPI={urlAPI}
-                setArticulo={setArticulo}
                 llamadaListaCompra={llamadaListaCompra}
               />
             </Route>
@@ -64,7 +67,7 @@ function App() {
               <Redirect to="/principal" />
             </Route>
             <Route path="**" exact>
-              <PaginaNotFound articulos={articulos} />
+              <PaginaNotFound />
             </Route>
           </Switch>
         </Router>

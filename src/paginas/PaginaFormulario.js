@@ -1,13 +1,16 @@
-import { useState, useEffect, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { DatosArticulosContext } from "../context/DatosArticulosContext";
+import { useState, useContext, useCallback } from "react";
+import { useParams, useHistory } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { FaTimesCircle, FaMinusCircle } from "react-icons/fa";
 import { Info } from "../componentes/Info";
 
 export const PaginaFormulario = (props) => {
-  const { articulos, urlAPI, llamadaListaCompra } = props;
+  const { urlAPI, llamadaListaCompra } = props;
+  const { articulos, setArticulos } = useContext(DatosArticulosContext);
   const { idItem } = useParams();
   const accion = idItem ? "editar" : "crear";
+  const history = useHistory();
   const numeroArticulos = articulos.legth;
   const numeroArticulosComprados = articulos.reduce(
     (contador, articulo) => (articulo.comprado ? contador + 1 : contador),
@@ -25,7 +28,7 @@ export const PaginaFormulario = (props) => {
   const [precio, setPrecio] = useState(idItem ? itemSelected.precio : "");
   const { fetchGlobal, error } = useFetch();
 
-  const editar = useCallback(
+  const tratarItem = useCallback(
     async (e) => {
       e.preventDefault();
       setItemSelected((articulo) => {
@@ -36,29 +39,59 @@ export const PaginaFormulario = (props) => {
           comprado: comprado,
         };
       });
-      const response = await fetchGlobal(`${urlAPI}/${idItem}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nombre: nombre,
-          precio: precio,
-          comprado: comprado,
-        }),
-      });
-      if (response) {
-        llamadaListaCompra(urlAPI);
+      if (!idItem) {
+        const response = await fetchGlobal(urlAPI, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombre: nombre,
+            precio: precio,
+            comprado: comprado,
+          }),
+        });
+        if (response) {
+          setArticulos([...articulos, response]);
+          history.push(`/lista-articulo`);
+        }
+      } else {
+        const response = await fetchGlobal(`${urlAPI}/${idItem}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nombre: nombre,
+            precio: precio,
+            comprado: comprado,
+          }),
+        });
+        if (response) {
+          llamadaListaCompra(urlAPI);
+          history.push(`/lista-articulo`);
+        }
       }
     },
-    [comprado, fetchGlobal, idItem, llamadaListaCompra, nombre, precio, urlAPI]
+    [
+      articulos,
+      comprado,
+      fetchGlobal,
+      history,
+      idItem,
+      llamadaListaCompra,
+      nombre,
+      precio,
+      setArticulos,
+      urlAPI,
+    ]
   );
   return (
     <>
       <Info />
       <main className="principal espaciado">
         <h2 className="titulo-seccion">Editar artículo</h2>
-        <form className="form-crear" noValidate onSubmit={editar}>
+        <form className="form-crear" noValidate onSubmit={tratarItem}>
           <label htmlFor="precio">Nombre:</label>
           <input
             type="text"
@@ -86,8 +119,8 @@ export const PaginaFormulario = (props) => {
             id="nombre"
             onChange={(e) => setComprado(e.target.checked)}
           />
-          <button class="enviar" type="submit">
-            {idItem ? "Modificar" : "Editar"}
+          <button className="enviar" type="submit">
+            {idItem ? "Modificar" : "Crear"}
           </button>
         </form>
       </main>
