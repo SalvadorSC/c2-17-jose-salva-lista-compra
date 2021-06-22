@@ -1,22 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
+import { FaTimesCircle } from "react-icons/fa";
+import { Info } from "../componentes/Info";
 
 export const Lista = (props) => {
   const history = useHistory();
-  const { articulos } = props;
-
+  const { articulos, urlAPI } = props;
+  const { fetchGlobal } = useFetch();
   const editarArticulo = (id) => {
-    history.push(`/editar-articulo/${id}`);
+    history.push(`/formulario-articulo/${id}`);
   };
+  const borrar = async (id) => {
+    const response = await fetchGlobal(`${urlAPI}/${id}`, {
+      method: "DELETE",
+    });
+  };
+
   return (
     <>
-      <ul>
-        {articulos.map((articulo) => (
-          <li key={articulo.id} onClick={() => editarArticulo(articulo.id)}>
-            {articulo.nombre}
-          </li>
-        ))}
-      </ul>
+      <Info />
+      <main className="principal espaciado">
+        <ul className="articulos">
+          {articulos.map((articulo) => (
+            <>
+              <li
+                key={articulo.id}
+                onClick={() => editarArticulo(articulo.id)}
+                className="articulo"
+              >
+                <input type="checkbox" className="marcar" />
+                <span className="nombre">{articulo.nombre}</span>
+                <span className="precio">{articulo.precio}€</span>
+                <div onClick={() => borrar(articulo.id)} className="borrar">
+                  <FaTimesCircle className="icono" />
+                </div>
+              </li>
+            </>
+          ))}
+        </ul>
+        <span className="precio-total">1.95€</span>
+      </main>
     </>
   );
 };
