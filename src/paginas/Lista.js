@@ -6,7 +6,7 @@ import { Info } from "../componentes/Info";
 
 export const Lista = (props) => {
   const history = useHistory();
-  const { articulos, urlAPI } = props;
+  const { articulos, urlAPI, llamadaListaCompra } = props;
   const { fetchGlobal } = useFetch();
   const editarArticulo = (id) => {
     history.push(`/formulario-articulo/${id}`);
@@ -15,6 +15,7 @@ export const Lista = (props) => {
     const response = await fetchGlobal(`${urlAPI}/${id}`, {
       method: "DELETE",
     });
+    llamadaListaCompra(urlAPI);
   };
 
   return (

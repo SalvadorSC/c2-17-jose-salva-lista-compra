@@ -40,7 +40,11 @@ function App() {
               <PaginaPrincipal articulos={articulos} />
             </Route>
             <Route path="/lista-articulo" exact>
-              <Lista articulos={articulos} urlAPI={urlAPI} />
+              <Lista
+                articulos={articulos}
+                urlAPI={urlAPI}
+                llamadaListaCompra={llamadaListaCompra}
+              />
             </Route>
             <Route path="/formulario-articulo" exact>
               <PaginaFormulario articulos={articulos} urlAPI={urlAPI} />
