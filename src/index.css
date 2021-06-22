@@ -85,9 +85,17 @@ i.icono {
 .articulo {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-size: 20px;
   margin-bottom: 10px;
 }
+.info-articulo {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: space-between;
+}
+
 .marcar {
   width: 20px;
   height: 20px;
@@ -95,6 +103,7 @@ i.icono {
 }
 .borrar {
   width: 60px;
+  line-height: 10px;
   text-align: right;
   font-size: 24px;
 }
