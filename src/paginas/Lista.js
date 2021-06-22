@@ -14,7 +14,7 @@ export const Lista = (props) => {
     history.push(`/formulario-articulo/${id}`);
   };
   const precioTotal = articulos.reduce(
-    (contador, articulo) => articulo.precio + contador,
+    (contador, articulo) => +articulo.precio + contador,
     0
   );
   const borrar = async (id) => {
