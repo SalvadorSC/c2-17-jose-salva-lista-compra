@@ -88,8 +88,8 @@ export const PaginaFormulario = (props) => {
             id="nombre"
             onChange={(e) => setComprado(e.target.checked)}
           />
-          <button className="enviar" type="submit">
-            Modificar
+          <button class="enviar" type="submit">
+            {idItem ? "Modificar" : "Editar"}
           </button>
         </form>
       </main>
