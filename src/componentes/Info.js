@@ -6,7 +6,6 @@ export const Info = (props) => {
   const { numeroArticulos, numeroArticulosComprados } = useContext(
     DatosArticulosContext
   );
-  const parametros = useParams();
   const history = useHistory();
   const { idItem } = props;
   const volverAtras = (id) => {

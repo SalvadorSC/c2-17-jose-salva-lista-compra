@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { FaTimesCircle, FaMinusCircle } from "react-icons/fa";
 import { Info } from "../componentes/Info";
 
 export const PaginaFormulario = (props) => {
-  const { articulos, urlAPI, setArticulo } = props;
+  const { articulos, urlAPI, llamadaListaCompra } = props;
   const { idItem } = useParams();
   const accion = idItem ? "editar" : "crear";
   const numeroArticulos = articulos.legth;
@@ -25,51 +25,56 @@ export const PaginaFormulario = (props) => {
   const [precio, setPrecio] = useState(idItem ? itemSelected.precio : "");
   const { fetchGlobal, error } = useFetch();
 
-  /* const editar = async () => {
-    const response = await fetchGlobal(`${urlAPI}/${idItem}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(itemSelected),
-    });
-   if (response) {
-      setArticulo(
-        .map((tipoGato) => {
-          if (tipoGato.id === tipoModificado.id) {
-            return {
-              ...tipoGato,
-              tipo: tipoModificado.tipo,
-            };
-          } else {
-            return tipoGato;
-          }
-        })
-      );
-    }
-  }; */
+  const editar = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setItemSelected((articulo) => {
+        return {
+          ...articulo,
+          nombre: nombre,
+          precio: precio,
+          comprado: comprado,
+        };
+      });
+      const response = await fetchGlobal(`${urlAPI}/${idItem}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: nombre,
+          precio: precio,
+          comprado: comprado,
+        }),
+      });
+      if (response) {
+        llamadaListaCompra(urlAPI);
+      }
+    },
+    [comprado, fetchGlobal, idItem, llamadaListaCompra, nombre, precio, urlAPI]
+  );
   return (
     <>
-      <Info idItem={idItem} />
-      <main class="principal espaciado">
-        <h2 class="titulo-seccion">Editar artículo</h2>
-        <form class="form-crear" noValidate>
+      <Info />
+      <main className="principal espaciado">
+        <h2 className="titulo-seccion">Editar artículo</h2>
+        <form className="form-crear" noValidate onSubmit={editar}>
           <label htmlFor="precio">Nombre:</label>
           <input
             type="text"
             value={nombre}
-            class="control"
+            className="control"
             onChange={(e) => setNombre(e.target.value)}
           />
 
           <label htmlFor="precio">Precio:</label>
-          <div class="control-moneda">
+          <div className="control-moneda">
             <input
               type="number"
               id="precio"
-              class="control"
+              className="control"
               value={precio}
-              onChange={(e) => setComprado(e.target.value)}
+              onChange={(e) => setPrecio(e.target.value)}
             />
             €
           </div>
@@ -79,7 +84,7 @@ export const PaginaFormulario = (props) => {
             value={comprado}
             defaultChecked={comprado}
             id="nombre"
-            onChange={(e) => setPrecio(e.target.value)}
+            onChange={(e) => setComprado(e.target.checked)}
           />
           <button class="enviar" type="submit">
             {idItem ? "Modificar" : "Editar"}
