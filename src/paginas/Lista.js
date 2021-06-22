@@ -34,8 +34,16 @@ export const Lista = (props) => {
                   key={articulo.id}
                   onClick={() => editarArticulo(articulo.id)}
                 >
-                  <input type="checkbox" className="marcar" />
-                  <span className="nombre">{articulo.nombre}</span>
+                  <input
+                    type="checkbox"
+                    className="marcar"
+                    defaultChecked={articulo.comprado}
+                  />
+                  <span
+                    className={`nombre ${articulo.comprado ? "tachado" : ""}`}
+                  >
+                    {articulo.nombre}
+                  </span>
                   <span className="precio">{articulo.precio}€</span>
                 </span>
 
