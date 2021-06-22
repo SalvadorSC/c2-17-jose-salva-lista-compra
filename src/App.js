@@ -54,6 +54,7 @@ function App() {
                 articulos={articulos}
                 urlAPI={urlAPI}
                 setArticulo={setArticulo}
+                llamadaListaCompra={llamadaListaCompra}
               />
             </Route>
             <Route path="/acerca-de" exact>

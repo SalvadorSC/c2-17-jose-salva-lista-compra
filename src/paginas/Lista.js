@@ -15,7 +15,9 @@ export const Lista = (props) => {
     const response = await fetchGlobal(`${urlAPI}/${id}`, {
       method: "DELETE",
     });
-    llamadaListaCompra(urlAPI);
+    if (response) {
+      llamadaListaCompra(urlAPI);
+    }
   };
 
   return (
