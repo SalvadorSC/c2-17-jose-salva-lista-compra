@@ -6,18 +6,19 @@ export const Info = (props) => {
   const { numeroArticulos, numeroArticulosComprados } = useContext(
     DatosArticulosContext
   );
-  const parametros = useParams();
   const history = useHistory();
-
   const { idItem } = props;
-  console.log(parametros);
   const volverAtras = (id) => {
     history.push(`/lista-articulo`);
   };
   return (
     <section className="info espaciado bloque-superior">
       <i className="icono">
-        {idItem ? <FaMinusCircle onClick={volverAtras} /> : <FaPlusCircle />}
+        {window.location.pathname === "/lista-articulo" ? (
+          <FaPlusCircle />
+        ) : (
+          <FaMinusCircle />
+        )}
       </i>
       <p className="n-articulos">
         {numeroArticulosComprados}/{numeroArticulos} comprados
