@@ -12,8 +12,13 @@ export const Cabecera = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/nuevo-amigo" activeClassName="actual">
-              Nuevo Amigo
+            <NavLink to="/lista-articulo" activeClassName="actual">
+              Lista
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/nuevo-articulo" activeClassName="actual">
+              Nuevo Articulo
             </NavLink>
           </li>
         </ul>
