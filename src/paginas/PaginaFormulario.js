@@ -15,6 +15,7 @@ export const PaginaFormulario = (props) => {
     idItem ? itemSelected.comprado : false
   );
   const [precio, setPrecio] = useState(idItem ? itemSelected.precio : "");
+
   return (
     <>
       <h2>Formulario para {accion} amigo</h2>
