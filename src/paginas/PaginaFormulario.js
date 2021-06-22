@@ -2,27 +2,40 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export const PaginaFormulario = (props) => {
-  const { amigos } = props;
-  const { idAmigo } = useParams();
-  const accion = idAmigo ? "editar" : "crear";
-  const [amigoSelected, setAmigoSelected] = useState(
-    amigos.find((amigo) => {
-      return amigo.id === parseInt(idAmigo);
+  const { articulos } = props;
+  const { idItem } = useParams();
+  const accion = idItem ? "editar" : "crear";
+  const [itemSelected, setItemSelected] = useState(
+    articulos.find((articulo) => {
+      return articulo.id === parseInt(idItem);
     })
   );
-  useEffect(() => {
-    console.log(amigoSelected);
-  }, [amigoSelected]);
-  const [numero, setNumero] = useState(idAmigo ? amigoSelected.numero : "");
+  const [nombre, setNombre] = useState(idItem ? itemSelected.nombre : "");
+  const [comprado, setComprado] = useState(
+    idItem ? itemSelected.comprado : false
+  );
+  const [precio, setPrecio] = useState(idItem ? itemSelected.precio : "");
   return (
     <>
       <h2>Formulario para {accion} amigo</h2>
       <form noValidate>
-        <label htmlFor="numero">Número:</label>
+        <label htmlFor="precio">Nombre:</label>
         <input
           type="text"
-          value={numero}
-          onChange={(e) => setNumero(e.target.value)}
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+        <label htmlFor="comprado">Comprado:</label>
+        <input
+          type="checkbox"
+          value={comprado}
+          onChange={(e) => setPrecio(e.target.value)}
+        />
+        <label htmlFor="precio">Precio:</label>
+        <input
+          type="number"
+          value={precio}
+          onChange={(e) => setComprado(e.target.value)}
         />
       </form>
     </>
