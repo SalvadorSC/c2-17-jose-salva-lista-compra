@@ -27,14 +27,16 @@ export const Lista = (props) => {
         <ul className="articulos">
           {articulos.map((articulo) => (
             <>
-              <li
-                key={articulo.id}
-                onClick={() => editarArticulo(articulo.id)}
-                className="articulo"
-              >
-                <input type="checkbox" className="marcar" />
-                <span className="nombre">{articulo.nombre}</span>
-                <span className="precio">{articulo.precio}€</span>
+              <li key={articulo.id}>
+                <span
+                  key={articulo.id}
+                  onClick={() => editarArticulo(articulo.id)}
+                >
+                  <input type="checkbox" className="marcar" />
+                  <span className="nombre">{articulo.nombre}</span>
+                  <span className="precio">{articulo.precio}€</span>
+                </span>
+
                 <div onClick={() => borrar(articulo.id)} className="borrar">
                   <FaTimesCircle className="icono" />
                 </div>

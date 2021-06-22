@@ -18,8 +18,6 @@ export const PaginaFormulario = (props) => {
       return articulo.id === parseInt(idItem);
     })
   );
-  console.log(itemSelected);
-
   const [nombre, setNombre] = useState(idItem ? itemSelected.nombre : "");
   const [comprado, setComprado] = useState(
     idItem ? itemSelected.comprado : false

@@ -11,13 +11,16 @@ export const Info = (props) => {
   const volverAtras = (id) => {
     history.push(`/lista-articulo`);
   };
+  const irCrearNuevoItem = (id) => {
+    history.push(`/formulario-articulo/`);
+  };
   return (
     <section className="info espaciado bloque-superior">
       <i className="icono">
-        {window.location.pathname === "/lista-articulo" ? (
-          <FaPlusCircle />
+        {idItem ? (
+          <FaMinusCircle onClick={volverAtras} />
         ) : (
-          <FaMinusCircle />
+          <FaPlusCircle onClick={irCrearNuevoItem} />
         )}
       </i>
       <p className="n-articulos">
