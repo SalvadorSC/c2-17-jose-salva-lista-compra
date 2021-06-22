@@ -10,7 +10,6 @@ export const Lista = (props) => {
   };
   return (
     <>
-      <h2>Listado de facturas</h2>
       <ul>
         {articulos.map((articulo) => (
           <li key={articulo.id} onClick={() => editarArticulo(articulo.id)}>

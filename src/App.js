@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { PaginaFormulario } from "./paginas/PaginaFormulario";
 import { PaginaNotFound } from "./paginas/PaginaNotFound";
 import { Lista } from "./paginas/Lista";
+import { AcercaDe } from "./paginas/AcercaDe";
 import { PaginaPrincipal } from "./paginas/PaginaPrincipal";
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
       <Router>
         <Cabecera />
         <Switch>
-          <Route path="/" activeClassNmae="actual" exact>
+          <Route path="/principal" activeClassNmae="actual" exact>
             <PaginaPrincipal articulos={articulos} />
           </Route>
           <Route path="/lista-articulo" exact>
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path="/editar-articulo/:idArticulo" exact>
             <PaginaFormulario articulos={articulos} />
+          </Route>
+          <Route path="/acerca-de" exact>
+            <AcercaDe />
           </Route>
           <Route path="**" exact>
             <PaginaNotFound articulos={articulos} />
