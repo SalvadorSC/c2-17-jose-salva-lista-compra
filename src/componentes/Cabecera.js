@@ -12,11 +12,12 @@ export const Cabecera = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/lista" activeClassName="actual">
+            <NavLink to="/lista-articulo" activeClassName="actual">
               Lista
             </NavLink>
           </li>
           <li>
+
             <NavLink to="/acerca-de" activeClassName="actual">
               Acerca De
             </NavLink>
