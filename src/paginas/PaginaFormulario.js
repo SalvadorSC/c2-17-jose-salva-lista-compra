@@ -52,7 +52,7 @@ export const PaginaFormulario = (props) => {
   }; */
   return (
     <>
-      <Info />
+      <Info idItem={idItem} />
       <main class="principal espaciado">
         <h2 class="titulo-seccion">Editar artículo</h2>
         <form class="form-crear" noValidate>
@@ -84,7 +84,7 @@ export const PaginaFormulario = (props) => {
             onChange={(e) => setPrecio(e.target.value)}
           />
           <button class="enviar" type="submit">
-            Modificar
+            {idItem ? "Modificar" : "Editar"}
           </button>
         </form>
       </main>
