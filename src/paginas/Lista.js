@@ -3,10 +3,10 @@ import { useHistory } from "react-router-dom";
 
 export const Lista = (props) => {
   const history = useHistory();
-  const { articulos, editarArticulo } = props;
+  const { articulos } = props;
 
-  const editarAmigo = (id) => {
-    history.push(`/editar-amigo/${id}`);
+  const editarArticulo = (id) => {
+    history.push(`/editar-articulo/${id}`);
   };
   return (
     <>
