@@ -1,11 +1,19 @@
 import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import { Cabecera } from "./componentes/Cabecera";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PaginaFormulario } from "./paginas/PaginaFormulario";
 import { PaginaNotFound } from "./paginas/PaginaNotFound";
 import { PaginaPrincipal } from "./paginas/PaginaPrincipal";
 
 function App() {
+  const [articulos, setArticulo] = useState([]);
+  const urlAPI = "http://localhost:3001/articulos";
+  const llamadaListaCompra = async (urlAPI) => {
+    const response = await fetch(urlAPI);
+    const articulos = await response.json();
+    setArticulo(articulos);
+  };
+  useEffect(() => llamadaListaCompra(urlAPI), []);
   return (
     <>
       <Router>
@@ -14,13 +22,13 @@ function App() {
           <Route path="/" exact>
             <PaginaPrincipal articulos={articulos} />
           </Route>
-          <Route path="/nuevo-amigo" exact>
+          <Route path="/nuevo-articulo" exact>
             <PaginaFormulario articulos={articulos} />
           </Route>
-          <Route path="/editar-amigo" exact>
+          <Route path="/editar-articulo" exact>
             <PaginaFormulario articulos={articulos} />
           </Route>
-          <Route path="/editar-amigo/:idAmigo" exact>
+          <Route path="/editar-articulo/:idArticulo" exact>
             <PaginaFormulario articulos={articulos} />
           </Route>
           <Route path="**" exact>
