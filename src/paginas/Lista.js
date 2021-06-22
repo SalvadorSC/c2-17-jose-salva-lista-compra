@@ -33,17 +33,13 @@ export const Lista = (props) => {
           {articulos.map((articulo) => (
             <>
               <li key={articulo.id} className="articulo">
-                <input type="checkbox" className="marcar" />
-                <div
-                  className="info-articulo"
+                <input
+                  type="checkbox"
+                  className="marcar"
+                  defaultChecked={articulo.comprado}
                   onClick={() => editarArticulo(articulo.id)}
-                >
-
-                  <input
-                    type="checkbox"
-                    className="marcar"
-                    defaultChecked={articulo.comprado}
-                  />
+                />
+                <div className="info-articulo">
                   <span
                     className={`nombre ${articulo.comprado ? "tachado" : ""}`}
                   >
