@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { DatosArticulosContext } from "../context/DatosArticulosContext";
+import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { FaTimesCircle } from "react-icons/fa";
@@ -6,7 +7,8 @@ import { Info } from "../componentes/Info";
 
 export const Lista = (props) => {
   const history = useHistory();
-  const { articulos, urlAPI, llamadaListaCompra } = props;
+  const { urlAPI, llamadaListaCompra } = props;
+  const { articulos } = useContext(DatosArticulosContext);
   const { fetchGlobal } = useFetch();
   const editarArticulo = (id) => {
     history.push(`/formulario-articulo/${id}`);
