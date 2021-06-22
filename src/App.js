@@ -6,29 +6,25 @@ import { PaginaNotFound } from "./paginas/PaginaNotFound";
 import { PaginaPrincipal } from "./paginas/PaginaPrincipal";
 
 function App() {
-  const [amigos, setAmigos] = useState([
-    { id: 1, numero: "1000" },
-    { id: 2, numero: "1001" },
-  ]);
   return (
     <>
       <Router>
         <Cabecera />
         <Switch>
           <Route path="/" exact>
-            <PaginaPrincipal amigos={amigos} />
+            <PaginaPrincipal articulos={articulos} />
           </Route>
           <Route path="/nuevo-amigo" exact>
-            <PaginaFormulario amigos={amigos} />
+            <PaginaFormulario articulos={articulos} />
           </Route>
           <Route path="/editar-amigo" exact>
-            <PaginaFormulario amigos={amigos} />
+            <PaginaFormulario articulos={articulos} />
           </Route>
           <Route path="/editar-amigo/:idAmigo" exact>
-            <PaginaFormulario amigos={amigos} />
+            <PaginaFormulario articulos={articulos} />
           </Route>
           <Route path="**" exact>
-            <PaginaNotFound amigos={amigos} />
+            <PaginaNotFound articulos={articulos} />
           </Route>
         </Switch>
       </Router>
