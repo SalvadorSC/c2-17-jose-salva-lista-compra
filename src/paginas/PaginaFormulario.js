@@ -10,6 +10,8 @@ export const PaginaFormulario = (props) => {
       return articulo.id === parseInt(idItem);
     })
   );
+  console.log(idItem);
+  console.log(articulos);
   const [nombre, setNombre] = useState(idItem ? itemSelected.nombre : "");
   const [comprado, setComprado] = useState(
     idItem ? itemSelected.comprado : false
@@ -30,6 +32,7 @@ export const PaginaFormulario = (props) => {
         <input
           type="checkbox"
           value={comprado}
+          defaultChecked={comprado}
           onChange={(e) => setPrecio(e.target.value)}
         />
         <label htmlFor="precio">Precio:</label>

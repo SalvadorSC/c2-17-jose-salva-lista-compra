@@ -33,7 +33,7 @@ function App() {
           <Route path="/editar-articulo" exact>
             <PaginaFormulario articulos={articulos} />
           </Route>
-          <Route path="/editar-articulo/:idArticulo" exact>
+          <Route path="/editar-articulo/:idItem" exact>
             <PaginaFormulario articulos={articulos} />
           </Route>
           <Route path="/acerca-de" exact>
